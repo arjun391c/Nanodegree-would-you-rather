@@ -4,8 +4,7 @@ import './index.css'
 import App from './components/App'
 import * as serviceWorker from './serviceWorker'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Router } from 'react-router-dom'
-import { history } from './utils/helpers'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 //redux
 import { createStore } from 'redux'
@@ -17,7 +16,7 @@ const store = createStore( reducers, middlewares )
 
 ReactDOM.render(
   <Provider store={store} >
-    <Router history={history}>
+    <Router >
       <App />
     </Router>
   </Provider>,

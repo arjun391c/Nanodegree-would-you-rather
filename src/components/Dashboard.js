@@ -46,10 +46,11 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps ({ questions, users }, {loggedUserId}) {
-    const loggedUser = users[loggedUserId]
+function mapStateToProps ({ questions, users, auth }) {
+   
+    const loggedUser = auth.loggedUser
     const newquestion = Object.values(questions).map((question) => 
-        formatQuestion( question,users[question.author],loggedUserId )
+        formatQuestion( question,users[question.author],loggedUser.id )
     ) 
     return {
         loggedUser: loggedUser,

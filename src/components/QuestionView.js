@@ -4,12 +4,10 @@ import AddPoll from './AddPoll'
 import PollResult from './PollResult'
 import { formatQuestion } from "../utils/helpers";
 import { postQuestionAnswer } from '../actions/shared'
+import PageNotFound from './PageNotFound'
 
 function QuestionView(props) {
   const [ answer, setAnswer ] = useState('')
-  
-  const { question, user, dispatch } = props;
-  const { name, avatar, hasVoted } = question;
 
   const handleSubmit = (e,id) =>{
       e.preventDefault()
@@ -19,6 +17,12 @@ function QuestionView(props) {
       setAnswer('')
   }
 
+  if(props.idNotFound){
+    return <PageNotFound/>
+  }
+
+  const { question, user, dispatch } = props;
+  const { name, avatar, hasVoted } = question;
 
   return (
     <div className="card">
@@ -52,16 +56,25 @@ function QuestionView(props) {
   );
 }
 
-function mapStateToProps({ users, questions }, props) {
+function mapStateToProps({ users, questions, auth }, props) {
   const { id } = props.match.params;
-  const { loggedUserId } = props;
+  const { loggedUser } = auth;
+  const idNotFound = true
+
+  if( questions[id] === undefined){
+    return {
+      idNotFound
+    }
+  }
+
   return {
     question: formatQuestion(
       questions[id],
       users[questions[id].author],
-      loggedUserId
+      loggedUser.id
     ),
-    user: loggedUserId,
+    user: loggedUser.id,
+    idNotFound: false
   };
 }
 

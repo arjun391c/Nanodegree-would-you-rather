@@ -1,9 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { handleLogout } from '../actions/auth'
 
 function Nav(props) {
-    const { logout, username} = props
+    const { dispatch, username} = props
     
     return (
         <div className='nav'>
@@ -13,15 +14,15 @@ function Nav(props) {
                 <li><NavLink to='/leaderboard' activeClassName='active'>Leaderboard</NavLink></li>
                 <span className='ml-auto'/>
                 <li><b>Hello &nbsp;</b>{username}</li>
-                <li><button onClick={logout} className='btn btn-outline-dark'>Logout</button></li>
+                <li><button onClick={() => dispatch(handleLogout())} className='btn btn-outline-dark'>Logout</button></li>
             </ul>
         </div>
     )
 }
 
-function mapStateToProps({users}, {loggedUserId}) {
+function mapStateToProps({auth}) {
     return {
-        username: users[loggedUserId].name
+        username: auth.loggedUser.name
     }
 }
 

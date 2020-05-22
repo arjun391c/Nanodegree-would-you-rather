@@ -123,4 +123,10 @@ class NewQuestion extends Component {
   }
 }
 
-export default connect()(NewQuestion);
+function mapStateToProps ({auth}) {
+  return {
+    loggedUserId: auth.loggedUser.id
+  }
+}
+
+export default connect(mapStateToProps)(NewQuestion);

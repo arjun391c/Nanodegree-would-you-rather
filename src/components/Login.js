@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { handleLogin } from "../actions/auth";
+import { Redirect } from 'react-router-dom'
 
-function Login({loggedUserId, handleChange, users, handleLogin }) {
+function Login(props) {
+  const [loggedUserId, setLoggedId] = useState("");
+
+  const { users, dispatch, loggedState } = props;
+
+  const { from } = props.location.state || { from: { pathname: "/" } };
+
+  if (loggedState) {
+    return <Redirect to={from} />;
+  }
+
   return (
     <div>
       <div className="login-container">
@@ -12,7 +25,7 @@ function Login({loggedUserId, handleChange, users, handleLogin }) {
           <select
             className="row"
             value={loggedUserId}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => setLoggedId(e.target.value)}
           >
             <option value="" disabled>
               Select User
@@ -26,7 +39,9 @@ function Login({loggedUserId, handleChange, users, handleLogin }) {
           <button
             className="btn custom-btn btn-success w-25"
             disabled={!loggedUserId}
-            onClick={handleLogin}
+            onClick={() =>
+              dispatch(handleLogin(loggedUserId))
+            }
           >
             Login
           </button>
@@ -36,4 +51,11 @@ function Login({loggedUserId, handleChange, users, handleLogin }) {
   );
 }
 
-export default Login;
+function mapStateToProps({ users, auth }) {
+  return {
+    users: Object.values(users).map((id) => id),
+    loggedState: auth.loggedState,
+  };
+}
+
+export default connect(mapStateToProps)(Login);

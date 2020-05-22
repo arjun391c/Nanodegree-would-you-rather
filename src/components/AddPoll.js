@@ -5,7 +5,7 @@ function AddPoll({ setAnswer, handleSubmit, question, answer }) {
 
   return (
     <form onSubmit={(e) => handleSubmit(e, id)}>
-      <div className="form-check ">
+      <div className="form-check">
         <input
           className='mr-3'
           type="radio"
@@ -25,7 +25,7 @@ function AddPoll({ setAnswer, handleSubmit, question, answer }) {
           value="optionTwo"
           onChange={(e) => setAnswer(e.target.value)}
         />
-        <label htmlFor="exampleRadios2"><h5>{optionTwo.text}</h5></label>
+        <label htmlFor="optionTwo"><h5>{optionTwo.text}</h5></label>
       </div>
       <div className='center'>
         <button

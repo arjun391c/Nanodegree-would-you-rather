@@ -1,5 +1,3 @@
-import {createBrowserHistory} from 'history';
-
 export function formatDate(timestamp) {
     const d = new Date(timestamp);
     const time = d.toLocaleTimeString('en-US');
@@ -19,5 +17,3 @@ export function formatQuestion(question, author, authedUser) {
         hasVoted: optionOne.votes.includes(authedUser) || optionTwo.votes.includes(authedUser)
     }             
 }
-
-export const history = createBrowserHistory();

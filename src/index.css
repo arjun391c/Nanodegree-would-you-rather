@@ -94,3 +94,12 @@ li {
   border: 1px solid #333;
   border-radius: 20px;
 }
+
+.form-check input {
+  width: 20px;
+  height: 20px;
+  align-items: center;
+}
+.form-check {
+  text-transform: capitalize;
+}
