@@ -45,6 +45,7 @@ function QuestionView(props) {
                     />
                   : <PollResult
                       question={question}
+                      user={user}
                     />
                 }
               </div>
